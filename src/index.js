@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React, { useContext, useReducer } from "react";
+import context from "./Context";
+import Reducer from "./Reducer";
+import reactDOM from "react-dom";
+import Products from "./Products";
+const App = () => {
+  const initialState = useContext(context);
+  const [state, dispatch] = useReducer(Reducer, initialState);
+  console.log(state);
+  return (
+    <context.Provider value={{ state, dispatch }}>
+      <Products />
+    </context.Provider>
+  );
+};
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+reactDOM.render(<App />, document.getElementById("root"));
